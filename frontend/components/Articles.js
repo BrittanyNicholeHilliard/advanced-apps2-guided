@@ -1,7 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { Navigate } from 'react-router-dom'
 
 export default function Articles(props) {
-  const { articles } = props
+
+  const { articles, setError, getArticles } = props
+
+  if (!localStorage.getItem('token')) {
+    setError('You must be logged in to view that page')
+    return <Navigate to="/" />
+  }
+
+  useEffect(()=> {
+    getArticles()
+  },[])
 
   return (
     <div className="articles">

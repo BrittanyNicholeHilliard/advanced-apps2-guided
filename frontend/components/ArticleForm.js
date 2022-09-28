@@ -3,17 +3,26 @@ import React, { useState } from 'react'
 const initialFormValues = { title: '', text: '', topic: '' }
 
 export default function ArticleForm(props) {
+
   const [values, setValues] = useState(initialFormValues)
+
+  const { postArticle } = props
 
   const onChange = evt => {
     const { id, value } = evt.target
     setValues({ ...values, [id]: value })
   }
 
+  const resetForm =() => {
+    setValues(initialFormValues)
+  }
+
   const onSubmit = evt => {
     evt.preventDefault()
-
+    postArticle(values, resetForm)
+    
   }
+
 
   return (
     <form id="form" onSubmit={onSubmit}>
